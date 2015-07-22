@@ -1,0 +1,31 @@
+{
+  "name": "ketteringCoffee",
+  "version": "0.2.0",
+  "description": "Brew coffee over the internet",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slamDuncan52/ketteringCoffee.git"
+  },
+  "keywords": [
+    "raspberry pi",
+    "kettering",
+    "coffee"
+  ],
+  "author": "Mitchell Duncan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/slamDuncan52/ketteringCoffee/issues"
+  },
+  "homepage": "https://github.com/slamDuncan52/speakEasy#readme",
+  "dependencies": {
+    "express": "^4.13.1",
+    "parser": "^0.1.4",
+    "pi-gpio": "0.0.7",
+    "tunnel": "0.0.3"
+  }
+}
