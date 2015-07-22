@@ -16,10 +16,10 @@ http.use(parser.urlencoded({
 http.use(express.static('page'));
 
 //Start Server!!!
-tunnelCli = tunnel(7542, {
+tunnelCli = tunnel(3001, {
         subdomain: "ketteringcoffee"
 }, function(err, tunnelCli) {
-        var server = http.listen(7542, function() {
+        var server = http.listen(3001, function() {
                 console.log(tunnelCli.url);
                 console.log("Server started at: " + tunnelCli.url);
         });
@@ -30,24 +30,34 @@ http.get('/', function(req, res) {
         res.redirect("/home.html");
 });
 
-http.post('home.html', function(req, res) {
-        if (res.setCoffee === 1) {
-                doCoffee(1);
-        } else if (res.setCoffee === 0) {
-                doCoffee(0);
+http.post('/home', function(req, res) {
+        var sanitizedCoffee = -1;
+        req.body.setCoffee = parseInt(req.body.setCoffee);
+        if (req.body.setCoffee === 1) {
+                sanitizedCoffee = 1;
+        } else if (req.body.setCoffee === 0) {
+                sanitizedCoffee = 0;
         }
+        doCoffee(sanitizedCoffee, function(status) {
+                res.send(status);
+        });
 });
 
 //Coffee Function
-function doCoffee(highLow) {
+function doCoffee(highLow, cb) {
         /*       gpio.open(cPin, "output", function(err) {
                        gpio.write(cPin, highLow, function() {
                                gpio.close(cPin);
                        });
                });*/
-        if (highLow) {
+        if (highLow === 1) {
                 console.log("YES!");
-        } else {
+                cb("Successful on");
+        } else if (highLow === 0) {
                 console.log("NO!");
+                cb("Successful off");
+        } else {
+                console.log("WHAT?");
+                cb("Unsuccessful");
         }
 }
